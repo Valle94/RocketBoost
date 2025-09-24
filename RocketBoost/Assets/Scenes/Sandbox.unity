@@ -696,6 +696,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4977621691143850947, guid: c1065e0a92f3d8f4fa8615cad8527ec3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -4803449312067332711, guid: 047501233d2bcb64fbc12eb56cf2d3c8, type: 3}
+    - target: {fileID: 4977621691143850947, guid: c1065e0a92f3d8f4fa8615cad8527ec3, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: -8122266311163210697, guid: 2506c32f90ed869409734d062d07c67e, type: 3}
     - target: {fileID: 6151701941496279212, guid: c1065e0a92f3d8f4fa8615cad8527ec3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -797,6 +805,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Rocket
       objectReference: {fileID: 0}
+    - target: {fileID: 7842981058143218226, guid: c0acf63eb6a55e34c9d88b492e8b4c73, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ad4e47271285f4498c0af5fdac4e638, type: 2}
     - target: {fileID: 8967083488656616825, guid: c0acf63eb6a55e34c9d88b492e8b4c73, type: 3}
       propertyPath: m_Constraints
       value: 56
