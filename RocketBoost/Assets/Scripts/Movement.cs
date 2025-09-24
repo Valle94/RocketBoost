@@ -3,15 +3,18 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] InputAction thrust;
+
+    void OnEnable()
     {
-        
+        thrust.Enable();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (thrust.IsPressed())
+        {
+            print("Thrust pressed");
+        }
     }
 }
