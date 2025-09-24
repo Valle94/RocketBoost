@@ -27,6 +27,8 @@ public class Movement : MonoBehaviour
     {
         ProcessThrust();
         ProcessRotation();
+        rb.constraints = RigidbodyConstraints.FreezeRotationY |
+        RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
     }
 
     private void ProcessThrust()
