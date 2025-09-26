@@ -2,19 +2,22 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float immuneTime = 1f;
-    [SerializeField] int health = 5;
+    [SerializeField] int maxHealth = 5;
     [SerializeField] TextMeshProUGUI tMPro;
     float timer = 0f;
     float waitTime = 2f;
+    int health;
     IEnumerator loadNextLevel;
     IEnumerator restartLevel;
 
     void Start()
     {
+        health = maxHealth;
         loadNextLevel = LoadNextLevel(waitTime);
         restartLevel = ReloadLevel(waitTime);
     }
@@ -38,8 +41,16 @@ public class CollisionHandler : MonoBehaviour
                     print("You've reached the end!");
                     StartCoroutine(loadNextLevel);
                     break;
-                case "Fuel":
-                    print("This is a fuel object");
+                case "Health":
+                    if (health <= 3)
+                    {
+                        health += 2;
+                    }
+                    else
+                    {
+                        health = maxHealth;    
+                    }
+                    Destroy(other.gameObject);
                     break;
                 default:
                     print("You crashed!");
