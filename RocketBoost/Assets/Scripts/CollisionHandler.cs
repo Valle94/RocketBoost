@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class CollisionHandler : MonoBehaviour
 {
@@ -7,6 +9,15 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] int health = 5;
     [SerializeField] TextMeshProUGUI tMPro;
     float timer = 0f;
+    float waitTime = 2f;
+    IEnumerator loadNextLevel;
+    IEnumerator restartLevel;
+
+    void Start()
+    {
+        loadNextLevel = LoadNextLevel(waitTime);
+        restartLevel = ReloadLevel(waitTime);
+    }
 
     void Update()
     {
@@ -25,19 +36,48 @@ public class CollisionHandler : MonoBehaviour
                     break;
                 case "Finish":
                     print("You've reached the end!");
+                    StartCoroutine(loadNextLevel);
                     break;
                 case "Fuel":
                     print("This is a fuel object");
                     break;
                 default:
                     print("You crashed!");
-                    if (health > 0)
+                    if (health > 1)
                     {
                         health--;
                     }
-                    timer += immuneTime;
+                    else
+                    {
+                        StartCoroutine(restartLevel);
+                    }
+
+                    if (timer <= 0)
+                    {
+                        timer = immuneTime;
+                    }
                     break;
             }
         }
+    }
+
+    private IEnumerator LoadNextLevel(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        int nextScene = currentScene + 1;
+        if (nextScene == SceneManager.sceneCountInBuildSettings)
+        {
+            nextScene = 0;
+        }
+
+        SceneManager.LoadScene(nextScene);
+    }
+
+    private IEnumerator ReloadLevel(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
     }
 }
