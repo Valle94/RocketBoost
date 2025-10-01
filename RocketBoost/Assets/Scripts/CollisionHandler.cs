@@ -27,7 +27,7 @@ public class CollisionHandler : MonoBehaviour
         {
             timer -= Time.deltaTime;
         }
-        tMPro.text = $"Health {health}"; // UI Health display
+        tMPro.text = $"Health: {health}"; // UI Health display
     }
 
     void OnCollisionEnter(Collision other)
@@ -51,7 +51,7 @@ public class CollisionHandler : MonoBehaviour
                 default: // We hit an obstacle
                     print("You crashed!");
                     if (health > 1) { health--; } // Reduce health
-                    else { StartCoroutine(restartLevel); } // Restart level if health would be 0
+                    else { health--; StartCoroutine(restartLevel); } // Restart level if health would be 0
 
                     if (timer <= 0) { timer = immuneTime; }
                     break;

@@ -7,7 +7,6 @@ public class Movement : MonoBehaviour
     [SerializeField] InputAction rotation;
     [SerializeField] float thrustStrength = 10f;
     [SerializeField] float rotationStrength = 10f;
-
     Rigidbody rb;
     AudioSource audioSource;
 
