@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
+using UnityEngine.InputSystem;
 
 public class CollisionHandler : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class CollisionHandler : MonoBehaviour
     float timer = 0f;
     int health;
     bool isControllable = true;
+    bool isCollidable = true;
 
     void Start()
     {
@@ -33,11 +36,13 @@ public class CollisionHandler : MonoBehaviour
             timer -= Time.deltaTime;
         }
         tMPro.text = $"Health: {health}"; // UI Health display
+
+        RespondToDebugKeys();
     }
 
     void OnCollisionEnter(Collision other)
     {
-        if (!isControllable) { return; }
+        if (!isControllable || !isCollidable) { return; }
 
         if (timer <= 0) // If the timer is <= 0, we aren't "immune"
         {
@@ -67,6 +72,18 @@ public class CollisionHandler : MonoBehaviour
                     if (timer <= 0) { timer = immuneTime; }
                     break;
             }
+        }
+    }
+
+    private void RespondToDebugKeys()
+    {
+        if (Keyboard.current.lKey.wasPressedThisFrame)
+        {
+            StartCoroutine(LoadNextLevel(0));
+        }
+        else if (Keyboard.current.cKey.wasPressedThisFrame)
+        {
+            isCollidable = !isCollidable;
         }
     }
 
