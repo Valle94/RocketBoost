@@ -4836,6 +4836,81 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &1888423770576355938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4060534323546558292}
+  - component: {fileID: 1403515985122579141}
+  - component: {fileID: 5056720779375321087}
+  m_Layer: 5
+  m_Name: FadeImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4060534323546558292
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888423770576355938}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3468767677925254775}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1403515985122579141
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888423770576355938}
+  m_CullTransparentMesh: 1
+--- !u!114 &5056720779375321087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888423770576355938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.15396903, g: 0.15040937, b: 0.18867922, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2169937943586518306
 GameObject:
   m_ObjectHideFlags: 0
@@ -9949,6 +10024,7 @@ GameObject:
   - component: {fileID: 284742463770833245}
   - component: {fileID: 8967083488656616825}
   - component: {fileID: 5723931165463315498}
+  - component: {fileID: 1970676805311310187}
   m_Layer: 0
   m_Name: Player Rocket
   m_TagString: Untagged
@@ -10072,10 +10148,13 @@ MonoBehaviour:
   maxHealth: 5
   loadDelay: 2
   tMPro: {fileID: 4850847745224136269}
+  impactSound: {fileID: 8300000, guid: 410201cc9960f8843a5b03322dc2f9b8, type: 3}
   crashSound: {fileID: 8300000, guid: 905d1ceeaf57f4b4f8c4fe1b4b5e400f, type: 3}
   finishSound: {fileID: 8300000, guid: 7cc00769ef681594281ce39d2e0d95e4, type: 3}
+  healthPickupSound: {fileID: 8300000, guid: 2c4b66530fb417545820332c7d330ba6, type: 3}
   crashFX: {fileID: 81979054864327415}
   finishFX: {fileID: 6670779954276630983}
+  fadeScreen: {fileID: 5056720779375321087}
 --- !u!65 &284742463770833245
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10221,6 +10300,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1970676805311310187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090573267454878310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e99187e5a5d77e49981b245c213735a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuitGame
 --- !u!1 &5528537749428757439
 GameObject:
   m_ObjectHideFlags: 0
@@ -10231,7 +10322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3256767042644399204}
   - component: {fileID: 4847302639978025949}
-  - component: {fileID: 8832103834523383252}
+  - component: {fileID: 2665449254141865129}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -10319,7 +10410,7 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!114 &8832103834523383252
+--- !u!114 &2665449254141865129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10380,6 +10471,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2958647095402397658}
+  - {fileID: 4060534323546558292}
   m_Father: {fileID: 4463099854296141872}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
