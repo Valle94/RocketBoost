@@ -7,7 +7,10 @@ public class Movement : MonoBehaviour
     [SerializeField] InputAction rotation;
     [SerializeField] float thrustStrength = 10f;
     [SerializeField] float rotationStrength = 10f;
-    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip mainEngineSFX;
+    [SerializeField] ParticleSystem mainEnginePFX;
+    [SerializeField] ParticleSystem leftThrusterPFX;
+    [SerializeField] ParticleSystem rightThrusterPFX;
 
     Rigidbody rb;
     AudioSource audioSource;
@@ -42,12 +45,17 @@ public class Movement : MonoBehaviour
             rb.AddRelativeForce(Vector3.up * thrustStrength * Time.deltaTime);
             if (!audioSource.isPlaying)
             {
-                audioSource.PlayOneShot(mainEngine);
+                audioSource.PlayOneShot(mainEngineSFX);
+            }
+            if (!mainEnginePFX.isPlaying)
+            {
+                mainEnginePFX.Play();
             }
         }
         else
         {
             audioSource.Stop();
+            mainEnginePFX.Stop();
         }
     }
 
@@ -58,10 +66,25 @@ public class Movement : MonoBehaviour
         if (rotationInput < 0)
         {
             ApplyRotation(rotationStrength);
+            if (!rightThrusterPFX.isPlaying)
+            {
+                leftThrusterPFX.Stop();
+                rightThrusterPFX.Play();
+            }
         }
         else if (rotationInput > 0)
         {
             ApplyRotation(-rotationStrength);
+            if (!leftThrusterPFX.isPlaying)
+            {
+                rightThrusterPFX.Stop();
+                leftThrusterPFX.Play();
+            }
+        }
+        else
+        {
+            leftThrusterPFX.Stop();
+            rightThrusterPFX.Stop();
         }
     }
 
