@@ -2,8 +2,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using System;
-using Unity.VisualScripting;
 
 public class CollisionHandler : MonoBehaviour
 {
@@ -18,6 +16,7 @@ public class CollisionHandler : MonoBehaviour
 
     float timer = 0f;
     int health;
+    bool isControllable = true;
 
     void Start()
     {
@@ -31,11 +30,13 @@ public class CollisionHandler : MonoBehaviour
         {
             timer -= Time.deltaTime;
         }
-        tMPro.text = $"Health {health}"; // UI Health display
+        tMPro.text = $"Health: {health}"; // UI Health display
     }
 
     void OnCollisionEnter(Collision other)
     {
+        if (!isControllable) { return; }
+
         if (timer <= 0) // If the timer is <= 0, we aren't "immune"
         {
             switch (other.gameObject.tag)
@@ -45,7 +46,7 @@ public class CollisionHandler : MonoBehaviour
                     break;
                 case "Finish": // We've reached the end, start next level
                     print("You've reached the end!");
-                    FinishSequence(); 
+                    FinishSequence();
                     break;
                 case "Health": // Restore health
                     if (health <= 3) { health += 2; }
@@ -55,9 +56,11 @@ public class CollisionHandler : MonoBehaviour
                 default: // We hit an obstacle
                     print("You crashed!");
                     if (health > 1) { health--; } // Reduce health
-                    else {
+                    else
+                    {
                         health--;
-                    StartCrashSequence(); } // Restart level if health would be 0
+                        StartCrashSequence();
+                    } // Restart level if health would be 0
 
                     if (timer <= 0) { timer = immuneTime; }
                     break;
@@ -67,6 +70,8 @@ public class CollisionHandler : MonoBehaviour
 
     private void FinishSequence()
     {
+        isControllable = false;
+        audioSource.Stop();
         audioSource.PlayOneShot(finishSound);
         GetComponent<Movement>().enabled = false;
         StartCoroutine(LoadNextLevel(loadDelay));;
@@ -74,6 +79,8 @@ public class CollisionHandler : MonoBehaviour
 
     private void StartCrashSequence()
     {
+        isControllable = false;
+        audioSource.Stop();
         audioSource.PlayOneShot(crashSound);
         GetComponent<Movement>().enabled = false;
         StartCoroutine(ReloadLevel(loadDelay));
