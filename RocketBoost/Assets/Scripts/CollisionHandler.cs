@@ -2,23 +2,20 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float immuneTime = 1f;
     [SerializeField] int maxHealth = 5;
+    [SerializeField] float loadDelay = 2f;
     [SerializeField] TextMeshProUGUI tMPro;
     float timer = 0f;
-    float waitTime = 2f;
     int health;
-    IEnumerator loadNextLevel;
-    IEnumerator restartLevel;
 
     void Start()
     {
         health = maxHealth;
-        loadNextLevel = LoadNextLevel(waitTime);
-        restartLevel = ReloadLevel(waitTime);
     }
 
     void Update()
@@ -41,7 +38,7 @@ public class CollisionHandler : MonoBehaviour
                     break;
                 case "Finish": // We've reached the end, start next level
                     print("You've reached the end!");
-                    StartCoroutine(loadNextLevel); 
+                    FinishSequence(); 
                     break;
                 case "Health": // Restore health
                     if (health <= 3) { health += 2; }
@@ -51,12 +48,26 @@ public class CollisionHandler : MonoBehaviour
                 default: // We hit an obstacle
                     print("You crashed!");
                     if (health > 1) { health--; } // Reduce health
-                    else { StartCoroutine(restartLevel); } // Restart level if health would be 0
+                    else {
+                        health--;
+                    StartCrashSequence(); } // Restart level if health would be 0
 
                     if (timer <= 0) { timer = immuneTime; }
                     break;
             }
         }
+    }
+
+    private void FinishSequence()
+    {
+        GetComponent<Movement>().enabled = false;
+        StartCoroutine(LoadNextLevel(loadDelay));;
+    }
+
+    private void StartCrashSequence()
+    {
+        GetComponent<Movement>().enabled = false;
+        StartCoroutine(ReloadLevel(loadDelay));
     }
 
     // This IEnumerator loads the next level after a specified wait time
