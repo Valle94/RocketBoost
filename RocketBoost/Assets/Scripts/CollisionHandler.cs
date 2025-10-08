@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
+using Unity.VisualScripting;
 
 public class CollisionHandler : MonoBehaviour
 {
@@ -10,11 +11,17 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] int maxHealth = 5;
     [SerializeField] float loadDelay = 2f;
     [SerializeField] TextMeshProUGUI tMPro;
+    [SerializeField] AudioClip crashSound;
+    [SerializeField] AudioClip finishSound;
+
+    AudioSource audioSource;
+
     float timer = 0f;
     int health;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         health = maxHealth;
     }
 
@@ -60,12 +67,14 @@ public class CollisionHandler : MonoBehaviour
 
     private void FinishSequence()
     {
+        audioSource.PlayOneShot(finishSound);
         GetComponent<Movement>().enabled = false;
         StartCoroutine(LoadNextLevel(loadDelay));;
     }
 
     private void StartCrashSequence()
     {
+        audioSource.PlayOneShot(crashSound);
         GetComponent<Movement>().enabled = false;
         StartCoroutine(ReloadLevel(loadDelay));
     }
