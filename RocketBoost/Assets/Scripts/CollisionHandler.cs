@@ -11,6 +11,8 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI tMPro;
     [SerializeField] AudioClip crashSound;
     [SerializeField] AudioClip finishSound;
+    [SerializeField] ParticleSystem crashFX;
+    [SerializeField] ParticleSystem finishFX;
 
     AudioSource audioSource;
 
@@ -71,6 +73,7 @@ public class CollisionHandler : MonoBehaviour
     private void FinishSequence()
     {
         isControllable = false;
+        finishFX.Play();
         audioSource.Stop();
         audioSource.PlayOneShot(finishSound);
         GetComponent<Movement>().enabled = false;
@@ -80,6 +83,7 @@ public class CollisionHandler : MonoBehaviour
     private void StartCrashSequence()
     {
         isControllable = false;
+        crashFX.Play();
         audioSource.Stop();
         audioSource.PlayOneShot(crashSound);
         GetComponent<Movement>().enabled = false;
